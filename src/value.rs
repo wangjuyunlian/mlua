@@ -667,7 +667,7 @@ impl<'a, 'lua> Serialize for SerializableValue<'a, 'lua> {
                 let visited = self.visited.as_ref().unwrap().clone();
                 SerializableTable::new(t, self.options, visited).serialize(serializer)
             }
-            Value::LightUserData(ud) if ud.0.is_null() => serializer.serialize_none(),
+            Value::LightUserData(ud) if ud.is_null() => serializer.serialize_none(),
             Value::UserData(ud) if ud.is_serializable() || self.options.deny_unsupported_types => {
                 ud.serialize(serializer)
             }
